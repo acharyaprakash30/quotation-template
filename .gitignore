@@ -16,6 +16,7 @@ bower_components
 
 # environment
 .env
+.env.local
 
 # Build directories
 dist
