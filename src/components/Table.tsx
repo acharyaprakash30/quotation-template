@@ -1,4 +1,7 @@
+"use client";
 import React from "react";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfDownload from "./download/PdfDownload";
 
 const Table = () => {
   return (
@@ -146,12 +149,13 @@ const Table = () => {
                   <p className="text-[11px]">34587</p>
                 </div>
               </div>
-              <div className="text-white bg-[#5850EB] rounded-[20px] mt-3 px-4 py-3">
-                <div className="flex justify-between items-center font-bold">
-                  <p className="text-[10px]">total price</p>
-                  <p className="text-[11px]">34587</p>
+                <div className="text-white bg-[#5850EB] rounded-[20px] mt-3 px-4 py-3">
+                  <div className="flex justify-between items-center font-bold">
+                    <p className="text-[10px]">total price</p>
+                    <p className="text-[11px]">34587</p>
+                  </div>
                 </div>
-              </div>
+                
             </div>
           </div>
         </div>

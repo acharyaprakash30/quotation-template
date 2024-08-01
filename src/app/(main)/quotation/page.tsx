@@ -1,12 +1,15 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import Table from "@app/components/Table";
 import { BgImg } from "@app/constants/SvgCollection";
 import logo from "@app/assets/images/logo.png";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfDownload from "@app/components/download/PdfDownload";
 
 const page = () => {
   return (
-    <div>
+    <>
       <div className="relative w-full">
         <div className="absolute w-full h-[346px] overflow-hidden z-10">
           <div className="object-cover">
@@ -16,8 +19,8 @@ const page = () => {
         <div className="relative z-20 w-1/2 pt-12 pb-6 m-auto">
           <div className="flex justify-between gap-28 text-white uppercase">
             <div>
-              <div className="w-[133.49px]"> 
-              <Image src={logo} alt="logo" className="w-full"/>
+              <div className="w-[133.49px]">
+                <Image src={logo} alt="logo" className="w-full" />
               </div>
               <p className="text-6xl font-semibold mt-2">Quotation</p>
             </div>
@@ -56,6 +59,9 @@ const page = () => {
       <div className="relative z-20">
         <Table />
       </div>
+      <PDFDownloadLink document={<PdfDownload />} fileName="quotation">
+        Download
+      </PDFDownloadLink>
 
       <div className="mt-20 w-1/2 m-auto">
         <div className="flex items-end justify-between">
@@ -81,7 +87,7 @@ const page = () => {
           Please confirm your acceptance of this quote. Thank you!
         </p>
       </div>
-    </div>
+    </>
   );
 };
 
