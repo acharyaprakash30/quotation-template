@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import Image from "next/image";
 import Table from "@app/components/Table";
@@ -59,10 +59,15 @@ const page = () => {
       <div className="relative z-20">
         <Table />
       </div>
-      <PDFDownloadLink document={<PdfDownload />} fileName="quotation">
-        Download
-      </PDFDownloadLink>
-
+      <div className="w-1/3 m-auto float-right mt-5">
+        <PDFDownloadLink
+          document={<PdfDownload />}
+          fileName="quotation"
+          className="px-4 py-2 bg-[#5850EB] text-white rounded-lg"
+        >
+          Download
+        </PDFDownloadLink>
+      </div>
       <div className="mt-20 w-1/2 m-auto">
         <div className="flex items-end justify-between">
           <div className="w-2/3 ">
