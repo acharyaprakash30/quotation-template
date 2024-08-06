@@ -61,7 +61,7 @@ const page = () => {
       <div className="relative z-20">
         <Table />
       </div>
-      {/* <div className="lg:w-1/3 m-auto float-right mt-5">
+      <div className="lg:w-1/3 m-auto float-right mt-5">
         <PDFDownloadLink
           document={<PdfDownload />}
           fileName="quotation"
@@ -69,7 +69,7 @@ const page = () => {
         >
           Download
         </PDFDownloadLink>
-      </div> */}
+      </div>
       <div className="mt-20 lg:w-1/2 m-auto lg:px-0 px-2">
         <div className="flex items-end justify-between">
           <div className="lg:w-2/3 w-1/2 ">
