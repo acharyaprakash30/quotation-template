@@ -5,8 +5,8 @@ import PdfDownload from "./download/PdfDownload";
 
 const Table = () => {
   return (
-    <div className="flex items-center justify-center w-full h-full">
-      <div className="bg-white drop-shadow-md w-1/2 p-4 rounded-2xl">
+    <div className="flex items-center justify-center h-full">
+      <div className="bg-white drop-shadow-md lg:w-1/2 lg:p-4 p-2 rounded-2xl">
         <table className="w-full table-fixed">
           <thead className="text-left">
             <tr className="bg-[#DEDCFE] font-semibold text-[10px] text-[#413ACA] uppercase">
@@ -120,39 +120,39 @@ const Table = () => {
           </tbody>
         </table>
 
-        <div className="p-4 pr-9 bg-[#DEDCFE80] rounded-[20px]">
+        <div className="p-4 lg:pr-9 bg-[#DEDCFE80] rounded-[20px]">
           <div className="flex justify-between">
-            <div className="w-1/2">
+            <div className="lg:w-1/2">
               <p className="uppercase text-[10px] text-[#5850EB] font-bold">
                 Payment Info
               </p>
               <div className="mt-3">
-                <p className="text-[11px] font-normal mb-2">
+                <p className="lg:text-[11px] text-[8px] font-normal mb-2">
                   Account No. :{" "}
                   <span className="font-semibold">423756495744832</span>
                 </p>
-                <p className="text-[11px] font-normal">
+                <p className="lg:text-[11px] text-[9px] font-normal">
                   Bank Name :{" "}
                   <span className="font-semibold"> HBL Bank Ltd.</span>
                 </p>
               </div>
             </div>
 
-            <div className="uppercase w-1/3">
-              <div className="px-4 font-medium">
+            <div className="uppercase lg:w-1/3">
+              <div className="lg:px-4 font-medium">
                 <div className="flex justify-between items-center mb-2">
-                  <p className="text-[10px]">sub total</p>
-                  <p className="text-[11px]">34587</p>
+                  <p className="lg:text-[10px] text-[8px]">sub total</p>
+                  <p className="lg:text-[11px] text-[9px]">34587</p>
                 </div>
                 <div className="flex justify-between items-center">
-                  <p className="text-[10px]">tax</p>
-                  <p className="text-[11px]">34587</p>
+                  <p className="lg:text-[10px] text-[8px]">tax</p>
+                  <p className="lg:text-[11px] text-[9px]">34587</p>
                 </div>
               </div>
-                <div className="text-white bg-[#5850EB] rounded-[20px] mt-3 px-4 py-3">
+                <div className="text-white bg-[#5850EB] rounded-[20px] mt-3 lg:px-4 lg:py-3 p-2">
                   <div className="flex justify-between items-center font-bold">
-                    <p className="text-[10px]">total price</p>
-                    <p className="text-[11px]">34587</p>
+                    <p className="lg:text-[11px] text-[8px] mr-7 lg:mr-0">total price</p>
+                    <p className="lg:text-[11px] text-[9px]">34587</p>
                   </div>
                 </div>
                 
