@@ -32,13 +32,13 @@ export const BgImg = () => {
           width="1678"
           height="956"
           fill="url(#pattern0_61_6)"
-          fill-opacity="0.6"
+          fillOpacity="0.6"
         />
         <g filter="url(#filter0_f_61_6)">
           <path
             d="M337.709 -146C126.93 -65.1764 -159.564 619.391 -89.6514 1204"
             stroke="#5850EB"
-            stroke-width="20"
+            strokeWidth="20"
           />
         </g>
         <g filter="url(#filter1_f_61_6)">
@@ -64,9 +64,9 @@ export const BgImg = () => {
           width="691.676"
           height="1600.52"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"
@@ -85,9 +85,9 @@ export const BgImg = () => {
           width="1442"
           height="1442"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend
             mode="normal"
             in="SourceGraphic"

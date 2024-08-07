@@ -4,8 +4,14 @@ import Image from "next/image";
 import Table from "@app/components/Table";
 import { BgImg } from "@app/constants/SvgCollection";
 import logo from "@app/assets/images/logo.png";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+// import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfDownload from "@app/components/download/PdfDownload";
+import dynamic from 'next/dynamic';
+
+const PDFDownloadLink = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PDFDownloadLink), { 
+  ssr: false 
+});
+
 
 const page = () => {
   return (
