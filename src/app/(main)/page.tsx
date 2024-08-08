@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 const page = ({children}: any) => {
   const router = useRouter();
   const redirectHome = () => {
-    router.push("/quotation");
+    router.push("/quotation/create");
   };
   useEffect(() => {
     redirectHome();
