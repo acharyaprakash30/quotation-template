@@ -1,4 +1,4 @@
-import CreateQuotationForm from "@app/components/CreateQuotationForm";
+import { CreateQuotationForm } from "@app/components/CreateQuotationForm";
 import React from "react";
 
 const CreateQuotation = () => {
