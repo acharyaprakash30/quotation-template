@@ -108,7 +108,7 @@ export const BgImg = () => {
           gradientUnits="userSpaceOnUse"
         >
           <stop />
-          <stop offset="1" stop-color="#120F70" />
+          <stop offset="1" stopColor="#120F70" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_61_6"
@@ -119,7 +119,7 @@ export const BgImg = () => {
           gradientUnits="userSpaceOnUse"
         >
           <stop />
-          <stop offset="1" stop-color="#120F70" />
+          <stop offset="1" stopColor="#120F70" />
         </linearGradient>
         <image
           id="image0_61_6"

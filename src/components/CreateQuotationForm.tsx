@@ -4,83 +4,111 @@ import { Formik, Form, FieldArray } from "formik";
 import InputField from "./shared/InputField";
 // import { useRouter } from "next/navigation";
 
-export const CreateQuotationForm = () => {
+export const CreateQuotationForm = ({
+  toggle,
+}: {
+  toggle: (value: boolean) => void;
+}) => {
+  const handleSubmit = (values: any) => {
+    console.log(values);
+    toggle(true);
+  };
   return (
     <div>
       <Formik
         initialValues={{
+          company:"",
+          quotationNo:"",
+          createdAt:"",
+          invoiceTo:"",
+          phone:"",
+          accNo:"",
+          bank:"",
           quotation: [
             {
               service: "",
               hours: "",
-              price: "",
-              accNumber: "",
+              price: 0,
+              total: 0,
             },
           ],
         }}
-        onSubmit={(values) => console.log(values)}
-        render={({ values }) => (
-          <Form className="w-full  px-5 py-10 mt-4 rounded-xl shadow-xl">
+        onSubmit={(values) => handleSubmit(values)}
+      >
+        {({ values }) => (
+          <Form className="px-5 py-10">
+            <div >
+              <p className="text-2xl font-semibold py-4">Details</p>
+            <div className="grid grid-cols-2 gap-4">
+            <InputField name={"company"} label="Company Name" placeholder="eg: Milo Logic Pvt. Ltd." />
+            <InputField name={"quotationNo"} label="Quotation No" placeholder="eg: 124532" />
+            <InputField name={"createdAt"} label="Created Date" placeholder="eg: 2024-11-22" />
+            <InputField name={"invoiceTo"} label="Invoice To" placeholder="eg: Mr.Harihar" />
+            <InputField name={"phone"} label="Phone" placeholder="eg: 9806960766"/>
+            <InputField name={"bank"} label="Bank" placeholder="eg: NMB Bank"/>
+            <InputField name={"accNo"} label="Account Number" placeholder="eg: 15776457738972"/>
+            </div>
+            </div>
             <FieldArray
               name="quotation"
               render={(arrayHelpers) => (
-                <div className="flex flex-col gap-4">
-                  {values.quotation && values.quotation.length > 0 ? (
+                <div className="flex flex-col gap-4 mt-8">
+                  {values.quotation &&
+                    values.quotation.length > 0 &&
                     values.quotation.map((item, index) => (
-                      <div key={index} className="flex gap-2 items-end">
-                        {Object.keys(item).map((key, subIndex) => (
-                          <div key={subIndex} className="w-[49%]">
-                            <InputField
-                              key={key}
-                              name={`quotation[${index}].${key}`}
-                              placeholder={
-                                key.charAt(0).toUpperCase() + key.slice(1)
-                              }
-                              label={key.charAt(0).toUpperCase() + key.slice(1)}
-                            />
-                          </div>
-                        ))}
-                        <button
-                          type="button"
-                          onClick={() => arrayHelpers.remove(index)}
-                          className="bg-red-600 text-white px-4 py-2 rounded-xl"
-                        >
-                          -
-                        </button>
-                        {index === values.quotation.length - 1 && (
+                      <div key={index}>
+                         <div className="mt-2 flex items-center justify-between gap-2">
+                      <p className="text-2xl font-semibold py-4">Quotation</p>
+                      <div className="mt-2 flex items-center justify-end gap-2">
                           <button
                             type="button"
-                            className="bg-green-600 text-white px-4 py-2 rounded-xl"
-                            onClick={() =>
-                              arrayHelpers.push({
-                                service: "",
-                                hours: "",
-                                price: "",
-                                accNumber: "",
-                              })
-                            }
+                            disabled={values.quotation.length === 1}
+                            onClick={() => arrayHelpers.remove(index)}
+                            className={`${
+                              values.quotation.length === 1
+                                ? "bg-gray-500 cursor-not-allowed"
+                                : "bg-red-500 cursor-pointer"
+                            } text-white px-5 py-2 rounded-xl w-fit`}
                           >
-                            +
+                            -
                           </button>
-                        )}
+                          {index === values.quotation.length - 1 && (
+                            <button
+                              type="button"
+                              className="bg-green-600 text-white px-5 py-2 rounded-xl w-fit"
+                              onClick={() =>
+                                arrayHelpers.push({
+                                  service: "",
+                                  hours: "",
+                                  price: "",
+                                  total: "",
+                                })
+                              }
+                            >
+                              +
+                            </button>
+                          )}
+                        </div>
                       </div>
-                    ))
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        arrayHelpers.push({
-                          service: "",
-                          hours: "",
-                          price: "",
-                          accNumber: "",
-                        })
-                      }
-                      className="bg-green-600 w-fit text-white px-4 py-2 rounded-xl"
-                    >
-                      Add a Quotation
-                    </button>
-                  )}
+                        <div className="grid grid-cols-2 gap-4 items-end">
+                          {Object.keys(item).map((key, subIndex) => (
+                            <div key={subIndex} className="w-full">
+                              <InputField
+                                key={key}
+                                name={`quotation[${index}].${key}`}
+                                placeholder={
+                                  key.charAt(0).toUpperCase() + key.slice(1)
+                                }
+                                label={
+                                  key.charAt(0).toUpperCase() + key.slice(1)
+                                }
+                              />
+                            </div>
+                          ))}
+                        </div>
+                       
+                      </div>
+                    ))}
                   <div className="mt-8 text-right">
                     <button
                       type="submit"
@@ -94,7 +122,7 @@ export const CreateQuotationForm = () => {
             />
           </Form>
         )}
-      />
+      </Formik>
     </div>
   );
 };

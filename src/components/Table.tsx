@@ -6,7 +6,7 @@ import PdfDownload from "./download/PdfDownload";
 const Table = () => {
   return (
     <div className="flex items-center justify-center h-full">
-      <div className="bg-white drop-shadow-md lg:w-1/2 lg:p-4 p-2 rounded-2xl">
+      <div>
         <table className="w-full table-fixed">
           <thead className="text-left">
             <tr className="bg-[#DEDCFE] font-semibold text-[10px] text-[#413ACA] uppercase">
