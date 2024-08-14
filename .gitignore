@@ -1,7 +1,12 @@
 # Node modules
 client/node_modules
+client/.next/
 server/node_modules
+client/package-lock.json
+server/package-lock.json
 server/.env
+
+
 
 # Next.js build output
 .next
