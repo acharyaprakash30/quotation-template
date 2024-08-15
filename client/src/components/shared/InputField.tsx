@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik, useFormikContext } from "formik";
 import React from "react";
 
 const InputField = ({
@@ -6,24 +6,47 @@ const InputField = ({
   placeholder,
   label,
   type,
+  isTextArea = false,
+  isDisabled = false,
+  customOnChange,
+  readOnly = false,
+  initialValue = null,
 }: {
   name: string;
   placeholder: string;
   label: string;
   type?: string;
+  isTextArea?: boolean;
+  isDisabled?: boolean;
+  customOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  readOnly? :boolean;
+  initialValue?: string | number | null;
 }) => {
+  const { setFieldValue } = useFormikContext();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setFieldValue(name, value);
+    if (customOnChange) {
+      customOnChange(event);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={name}>{label}</label>
-      <Field
+      <Field as={isTextArea ? "textarea" : "input"}
         type={type ? type : "text"}
         name={name}
         placeholder={placeholder}
         className="p-2 border border-gray-300 rounded-md w-full"
+        disabled={isDisabled}
+        onChange={handleChange}
+        {...(readOnly && { value: initialValue })}
       />
-      <ErrorMessage
+       <ErrorMessage
         name={name}
-        component={"div"}
+        component="div"
         className="text-red-500 text-xs min-h-5"
       />
     </div>

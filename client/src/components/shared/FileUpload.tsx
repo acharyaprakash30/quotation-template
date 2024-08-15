@@ -19,7 +19,7 @@ const FileUpload = ({
         onChange={(event: any) => value(name, event.target.files[0])}
         className="p-2 border border-gray-300 rounded-md w-full"
       />
-      <ErrorMessage name={name} component={"div"} className="text-red-500 text-xs"/>
+      <ErrorMessage name={name} component="div" className="text-red-500 text-xs"/>
     </div>
   );
 };
