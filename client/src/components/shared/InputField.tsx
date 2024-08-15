@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
 
 const InputField = ({
@@ -20,6 +20,11 @@ const InputField = ({
         name={name}
         placeholder={placeholder}
         className="p-2 border border-gray-300 rounded-md w-full"
+      />
+      <ErrorMessage
+        name={name}
+        component={"div"}
+        className="text-red-500 text-xs min-h-5"
       />
     </div>
   );

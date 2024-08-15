@@ -1,8 +1,10 @@
 "use client";
 import React from "react";
-import { Formik, Form, FieldArray } from "formik";
+import { Formik, Form, FieldArray, ErrorMessage } from "formik";
 import InputField from "./shared/InputField";
-// import { useRouter } from "next/navigation";
+import * as yup from "yup";
+import { validationSchema } from "@app/constants/Validations";
+import FileUpload from "./shared/FileUpload";
 
 export const CreateQuotationForm = ({
   toggle,
@@ -18,52 +20,49 @@ export const CreateQuotationForm = ({
       <Formik
         initialValues={{
           company: "",
+          name:"",
+          designation:"",
           quotationNo: "",
           createdAt: "",
           invoiceTo: "",
           phone: "",
           accNo: "",
           bank: "",
-          logo:"",
-          signature:"",
+          logo: "",
+          signature: "",
           quotation: [
             {
               service: "",
               hours: "",
-              price: 0,
-              total: 0,
+              price: "",
+              total: "",
             },
           ],
         }}
+        validationSchema={validationSchema}
         onSubmit={(values) => handleSubmit(values)}
       >
         {({ values, setFieldValue }) => (
           <Form className="px-5 py-10">
             <div>
               <p className="text-2xl font-semibold py-4">Details</p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor={"logo"}>Upload Logo</label>
-                  <input
-                    type="file"
-                    name="logo"
-                    onChange={(event: any) =>
-                      setFieldValue("logo", event.target.files[0])
-                    }
-                    className="p-2 border border-gray-300 rounded-md w-full"
-                  />
-                </div>
+              <div className="grid grid-cols-2 gap-4 items-start ">
+                <FileUpload
+                  value={setFieldValue}
+                  name={"logo"}
+                  label="Upload Logo"
+                />
                 <InputField
                   name={"company"}
                   label="Company Name"
                   placeholder="eg: Milo Logic Pvt. Ltd."
                 />
-                 <InputField
+                <InputField
                   name={"name"}
                   label="Name"
                   placeholder="eg: Bipin Pathak"
                 />
-                 <InputField
+                <InputField
                   name={"designation"}
                   label="Designation"
                   placeholder="eg: Associate Manager"
@@ -72,11 +71,6 @@ export const CreateQuotationForm = ({
                   name={"quotationNo"}
                   label="Quotation No"
                   placeholder="eg: 124532"
-                />
-                <InputField
-                  name={"createdAt"}
-                  label="Created Date"
-                  placeholder="eg: 2024-11-22"
                 />
                 <InputField
                   name={"invoiceTo"}
@@ -98,17 +92,11 @@ export const CreateQuotationForm = ({
                   label="Account Number"
                   placeholder="eg: 15776457738972"
                 />
-                <div className="flex flex-col gap-2">
-                  <label htmlFor={"signature"}>Upload Signature</label>
-                  <input
-                    type="file"
-                    name="signature"
-                    onChange={(event: any) =>
-                      setFieldValue("signature", event.target.files[0])
-                    }
-                    className="p-2 border border-gray-300 rounded-md w-full"
-                  />
-                </div>
+                <FileUpload
+                  value={setFieldValue}
+                  name={"signature"}
+                  label="Upload Signature"
+                />
               </div>
             </div>
             <FieldArray
@@ -154,7 +142,7 @@ export const CreateQuotationForm = ({
                             )}
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-4 items-end">
+                        <div className="grid grid-cols-2 gap-4 items-start">
                           {Object.keys(item).map((key, subIndex) => (
                             <div key={subIndex} className="w-full">
                               <InputField
