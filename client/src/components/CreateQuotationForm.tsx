@@ -2,10 +2,10 @@
 import React from "react";
 import { Formik, Form, FieldArray, ErrorMessage } from "formik";
 import InputField from "./shared/InputField";
-import * as yup from "yup";
 import { validationSchema } from "@app/constants/Validations";
 import FileUpload from "./shared/FileUpload";
 import { AddIcon, DeleteIcon } from "@app/constants/SvgCollection";
+import { PostQuotation } from "@app/app/api/submission";
 
 export const CreateQuotationForm = ({
   toggle,
@@ -23,7 +23,22 @@ export const CreateQuotationForm = ({
   };
 
   const handleSubmit = (values: any) => {
-    console.log(values);
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("manager", values.manager);
+    formData.append("quotationNo", values.quotationNo);
+    formData.append("invoiceTo", values.invoiceTo);
+    formData.append("phoneNumber", values.phoneNumber);
+    formData.append("accountNumber", values.accountNumber);
+    formData.append("bankName", values.bankName);
+    formData.append("logo", values.logo);
+    formData.append("managerSignature", values.managerSignature);
+    formData.append("termsAndConditions", values.termsAndConditions);
+    formData.append("taxAmount", values.taxAmount);
+    formData.append("taxAmount", values.taxAmount);
+    formData.append("totalAmount", String(subTotal));
+    formData.append("quotationServices", JSON.stringify(values.quotationServices));
+    PostQuotation(formData);
     toggle(true);
   };
   const calculateSubtotal = (quotation: any[]): number => {
@@ -32,6 +47,7 @@ export const CreateQuotationForm = ({
       0
     );
   };
+
   return (
     <div>
       <Formik
@@ -44,9 +60,9 @@ export const CreateQuotationForm = ({
           accountNumber: "",
           bankName: "",
           logo: null,
-          managerSignature:  null,
-          termsAndConditions:"",
-          quotation: [
+          managerSignature: null,
+          termsAndConditions: "",
+          quotationServices: [
             {
               service: "",
               hours: "",
@@ -70,7 +86,7 @@ export const CreateQuotationForm = ({
                   value={setFieldValue}
                   name={"logo"}
                   label="Upload Logo"
-                  uploadedValue = {values.logo}
+                  uploadedValue={values.logo}
                 />
                 <InputField
                   name={"name"}
@@ -86,7 +102,7 @@ export const CreateQuotationForm = ({
                   value={setFieldValue}
                   name="managerSignature"
                   label="Upload Manager Signature"
-                  uploadedValue = {values.managerSignature}
+                  uploadedValue={values.managerSignature}
                 />
                 <div className="col-span-2">
                   <InputField
@@ -126,12 +142,12 @@ export const CreateQuotationForm = ({
               </div>
             </div>
             <FieldArray
-              name="quotation"
+              name="quotationServices"
               render={(arrayHelpers) => (
                 <div className="flex flex-col gap-4 mt-8">
-                  {values.quotation &&
-                    values.quotation.length > 0 &&
-                    values.quotation.map((item, index) => (
+                  {values.quotationServices &&
+                    values.quotationServices.length > 0 &&
+                    values.quotationServices.map((item, index) => (
                       <div key={index}>
                         <div className="mt-2 flex items-center justify-between gap-2">
                           <p className="text-[#5850EB] text-xl font-semibold py-4 mt-8">
@@ -140,17 +156,17 @@ export const CreateQuotationForm = ({
                           <div className="mt-2 flex items-center justify-end gap-2">
                             <button
                               type="button"
-                              disabled={values.quotation.length === 1}
+                              disabled={values.quotationServices.length === 1}
                               onClick={() => arrayHelpers.remove(index)}
                               className={`${
-                                values.quotation.length === 1
+                                values.quotationServices.length === 1
                                   ? "bg-gray-500 cursor-not-allowed"
                                   : "bg-red-500 cursor-pointer"
                               } text-white p-2 rounded-xl w-fit`}
                             >
                               <DeleteIcon />
                             </button>
-                            {index === values.quotation.length - 1 && (
+                            {index === values.quotationServices.length - 1 && (
                               <button
                                 type="button"
                                 className="bg-[#5850EB] text-white p-2 rounded-xl w-fit"
@@ -181,7 +197,7 @@ export const CreateQuotationForm = ({
                             >
                               <InputField
                                 key={key}
-                                name={`quotation[${index}].${key}`}
+                                name={`quotationServices[${index}].${key}`}
                                 placeholder={
                                   key.charAt(0).toUpperCase() + key.slice(1)
                                 }
@@ -195,7 +211,7 @@ export const CreateQuotationForm = ({
                                 ) => {
                                   const value = event.target.value;
                                   setFieldValue(
-                                    `quotation[${index}].${key}`,
+                                    `quotationServices[${index}].${key}`,
                                     value
                                   );
 
@@ -211,12 +227,12 @@ export const CreateQuotationForm = ({
 
                                     const total = calculateTotal(hours, price);
                                     setFieldValue(
-                                      `quotation[${index}].total`,
+                                      `quotationServices[${index}].total`,
                                       total
                                     );
 
                                     const updatedQuotation =
-                                      values.quotation.map((q, i) =>
+                                      values.quotationServices.map((q, i) =>
                                         i === index ? { ...q, total } : q
                                       );
                                     setSubTotal(
@@ -230,7 +246,13 @@ export const CreateQuotationForm = ({
                         </div>
                       </div>
                     ))}
-                  <div className="mt-2 flex flex-col gap-4">
+                  <div className="mt-2 grid grid-cols-2 items-start gap-4">
+
+                    <InputField
+                      name={"taxAmount"}
+                      label="Tax Amount"
+                      placeholder="eg: 987"
+                    />
                     <InputField
                       name={"subtotal"}
                       label="Sub Total"
@@ -239,12 +261,16 @@ export const CreateQuotationForm = ({
                       isDisabled
                       readOnly
                     />
+                    <div className="col-span-2">
+
+                  
                     <InputField
                       name={"termsAndConditions"}
                       label="Terms and Conditions"
                       placeholder="eg: It is a long established fact ...."
                       isTextArea
                     />
+                      </div>
                     {/* <p>subtotal</p>
                           <p>{subTotal}</p> */}
                   </div>

@@ -12,13 +12,15 @@ export const validationSchema = yup.object().shape({
     .number()
     .typeError("Phone Number must be a number")
     .required("This Field is required"),
-    accountNumber: yup
-    .string()
-    .required("This Field is required"),
+  accountNumber: yup.string().required("This Field is required"),
   bankName: yup.string().required("This Field is required"),
   logo: yup.mixed().required("This Field is required"),
   managerSignature: yup.mixed().required("This Field is required"),
   termsAndConditions: yup.string().required("This Field is required"),
+  taxAmount: yup
+    .number()
+    .typeError("Tax must be a number")
+    .required("This Field is required"),
   quotation: yup.array().of(
     yup.object().shape({
       service: yup.string().required("This Field is required"),
