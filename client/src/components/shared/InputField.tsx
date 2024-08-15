@@ -34,12 +34,12 @@ const InputField = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} className="text-[#5C6269] font-semibold text-xs uppercase">{label}</label>
       <Field as={isTextArea ? "textarea" : "input"}
         type={type ? type : "text"}
         name={name}
         placeholder={placeholder}
-        className="p-2 border border-gray-300 rounded-md w-full"
+        className="p-2 border border-gray-300 rounded-md w-full outline-none"
         disabled={isDisabled}
         onChange={handleChange}
         {...(readOnly && { value: initialValue })}
@@ -47,7 +47,7 @@ const InputField = ({
        <ErrorMessage
         name={name}
         component="div"
-        className="text-red-500 text-xs min-h-5"
+        className="text-red-500 text-xs"
       />
     </div>
   );
