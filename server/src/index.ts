@@ -32,12 +32,11 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
+app.use('/uploads', express.static('public'));
+
 app.use('/api/v1', router);
 
-// send back a 404 error for any unknown api request
-app.use((req, res, next) => {
-    next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
-  });
+
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

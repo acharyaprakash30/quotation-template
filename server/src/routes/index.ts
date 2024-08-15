@@ -3,7 +3,6 @@ import prisma from "../utils/client";
 import uploadMiddleware from "../utils/Upload";
 
 const router = express.Router();
-
 router
   .route("/quotation")
   .get( async (req, res) => {
@@ -75,7 +74,7 @@ router
           },
         });
       }
-      res.status(200).json({ data: { ...req.body }, message: "success" });
+      res.status(200).json({ data: { ...req.body,logo,managerSignature }, message: "success" });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

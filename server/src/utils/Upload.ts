@@ -25,7 +25,7 @@ const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallb
   if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    req.fileError = "Upload image file (jpeg/jpg, png, or gif)!";
+    req.fileError = "Upload image file (jpeg/jpg,pdf, png, or gif)!";
     cb(null, false);
   }
 };
