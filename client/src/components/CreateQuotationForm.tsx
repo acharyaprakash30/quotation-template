@@ -26,7 +26,7 @@ export const CreateQuotationForm = ({
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("manager", values.manager);
-    formData.append("quotationNo", values.quotationNo);
+    formData.append("quotationNumber", values.quotationNo);
     formData.append("invoiceTo", values.invoiceTo);
     formData.append("phoneNumber", values.phoneNumber);
     formData.append("accountNumber", values.accountNumber);
@@ -34,7 +34,6 @@ export const CreateQuotationForm = ({
     formData.append("logo", values.logo);
     formData.append("managerSignature", values.managerSignature);
     formData.append("termsAndConditions", values.termsAndConditions);
-    formData.append("taxAmount", values.taxAmount);
     formData.append("taxAmount", values.taxAmount);
     formData.append("totalAmount", String(subTotal));
     formData.append("quotationServices", JSON.stringify(values.quotationServices));
@@ -252,6 +251,15 @@ export const CreateQuotationForm = ({
                       name={"taxAmount"}
                       label="Tax Amount"
                       placeholder="eg: 987"
+                      customOnChange={( event: React.ChangeEvent<HTMLInputElement>)=>{
+                        const value = Number(event.target.value);
+                        let valueAfterTax = Number(subTotal) - value
+                        if(valueAfterTax < 0){
+                          setFieldValue("taxAmount",0)
+                        }else{
+                          setSubTotal(subTotal - value);
+                        }
+                      }}
                     />
                     <InputField
                       name={"subtotal"}

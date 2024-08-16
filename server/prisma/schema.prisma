@@ -41,10 +41,8 @@ model Quotation {
   id                 Int      @id @default(autoincrement())
   invoiceTo          String
   quotationNumber    String
-  quotationDate      String
-  invoiceNumber      String
-  totalAmount        String
-  taxAmount          String
+  totalAmount        Float
+  taxAmount          Float
   accountNumber      String
   bankName           String
   termsAndConditions String

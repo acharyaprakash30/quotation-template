@@ -26,7 +26,26 @@ router
     async (req:any, res) => {
     try {
 
-      let { name, manager, phoneNumber, ...rest } =req.body;
+      let { name, manager, phoneNumber,taxAmount,totalAmount,quotationServices, ...rest } =req.body;
+      let sum = 0;
+      if(!name || !manager || !phoneNumber || !taxAmount || !totalAmount || !quotationServices) {
+        return res.status(400).json({ error: "All fields are required" });
+      }
+
+      let quotationService = JSON.parse(quotationServices);
+      if(quotationService && quotationService.length > 0) {
+      
+        quotationService.map((item:{service:string,hours:string,price:string,total:number,description:string})=>{
+             sum  =  sum + (Number(item.hours) * Number(item.price));
+        })
+        sum = sum - Number(taxAmount);
+        if(sum < 0){
+          throw new Error("Tax amount shouldnot be greater then total amount");
+        }
+      }
+
+      console.log(JSON.parse(quotationServices));
+
       let logo =req.files && req.files?.logo ?  req.files?.logo?.[0]?.filename : "";
       let managerSignature = req.files && req.files?.managerSignature ? req.files?.managerSignature?.[0]?.filename : "";
  
@@ -41,6 +60,7 @@ router
       };
 
       if (company && quotation) {
+
         await prisma.company.update({
           where: {
             id: company.id,
@@ -54,6 +74,9 @@ router
           data: {
             ...rest,
             companyId: company.id,
+            taxAmount: Number(taxAmount),
+            totalAmount:Number(sum),
+            quotationServices: quotationServices
           },
         });
       } else {
@@ -71,6 +94,9 @@ router
           data: {
             ...rest,
             companyId: newCompany.id,
+            taxAmount:Number(taxAmount),
+            totalAmount:Number(sum),
+            quotationServices: quotationServices
           },
         });
       }
