@@ -29,7 +29,7 @@ const page = () => {
       JSON.stringify(values.quotationServices)
     );
     PostQuotation(formData).then((response) => {
-      setQuotationData(response?.data);
+      setQuotationData(response?.data?.quotationData);
     });
     setToggleForm(true);
   };

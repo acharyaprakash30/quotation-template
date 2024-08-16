@@ -25,11 +25,13 @@ const QuotationForm = ({
   };
 
   const calculateSubtotal = (quotation: any[]): number => {
+
     return quotation.reduce(
       (acc, curr) => acc + (parseFloat(curr.total) || 0),
       0
     );
   };
+
 
   return (
     <div>
@@ -238,11 +240,13 @@ const QuotationForm = ({
                         event: React.ChangeEvent<HTMLInputElement>
                       ) => {
                         const value = Number(event.target.value);
+                        const subTotalValue = Number()
                         let valueAfterTax = Number(subTotal) - value;
+                        console.log(value,"------",subTotal)
                         if (valueAfterTax < 0) {
                           setFieldValue("taxAmount", 0);
                         } else {
-                          setSubTotal(subTotal - value);
+                          setSubTotal(valueAfterTax);
                         }
                       }}
                     />

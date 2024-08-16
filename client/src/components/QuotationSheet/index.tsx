@@ -12,6 +12,12 @@ const QuotationSheet = ({ quotationData }: any) => {
     }
   );
 
+  const dateString = quotationData.company.createdAt;
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString("en-CA");
+
+  console.log(formattedDate);
+
   console.log(quotationData, "--------data");
   return (
     <div className="bg-white drop-shadow-md rounded-2xl">
@@ -20,7 +26,7 @@ const QuotationSheet = ({ quotationData }: any) => {
           <div>
             <div className="lg:w-[133.49px] w-[50px]">
               <Image
-                src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.logo}`}
+                src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
                 alt="logo"
                 className="w-full"
                 width={100}
@@ -40,7 +46,7 @@ const QuotationSheet = ({ quotationData }: any) => {
               <div>
                 <p>created date</p>
                 <p className="lg:text-sm text-[10px]  font-normal text-black/60 capitalize">
-                  {quotationData.createdDate}
+                  {formattedDate}
                 </p>
               </div>
             </div>
@@ -54,7 +60,7 @@ const QuotationSheet = ({ quotationData }: any) => {
               <div>
                 <p>phone</p>
                 <p className="lg:text-sm text-[10px]  font-normal text-black/60 capitalize">
-                  {quotationData.phoneNumber}
+                  {quotationData.company.phoneNumber}
                 </p>
               </div>
             </div>
@@ -86,7 +92,7 @@ const QuotationSheet = ({ quotationData }: any) => {
             </div>
             <div>
               <Image
-                src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.managerSignature}`}
+                src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.managerSignature}`}
                 alt="logo"
                 className="w-1/2 m-auto"
                 width={100}
@@ -95,7 +101,7 @@ const QuotationSheet = ({ quotationData }: any) => {
 
               <div className="px-8 py-2 border-t border-black text-center">
                 <p className="lg:text-xs text-[10px] font-semibold">
-                  {quotationData.manager}
+                  {quotationData.company.manager}
                 </p>
                 <p className="lg:text-[11px] text-[8px] text-[#04151ABF]">
                   Associate Manager

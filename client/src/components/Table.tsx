@@ -2,9 +2,13 @@
 import React from "react";
 
 const Table = ({ quotationData }: any) => {
-
+  console.log(
+    quotationData?.quotationServices,
+    typeof quotationData?.quotationServices
+  );
   const quotationServices = JSON.parse(quotationData?.quotationServices);
-  console.log("quotationServices", quotationServices);
+
+  console.log(quotationServices, "quotationServices");
   return (
     <div className="flex items-center justify-center h-full">
       <div>
@@ -18,107 +22,28 @@ const Table = ({ quotationData }: any) => {
             </tr>
           </thead>
           <tbody>
-            {quotationData && quotationServices.map((item:any, index:number) => (
-              <tr key={index} className="odd:bg-white even:bg-[#F8F9FC]">
-                <td className="text-xs p-4 rounded-l-[20px] font-semibold">
-                  {item.service}
-                  <span className="flex flex-col gap-1 mt-1">
-                    <span className="text-[11px] text-[#04151ABF] font-normal">
-                      {item.description}
+            {quotationData &&
+              quotationServices.map((item: any, index: number) => (
+                <tr key={index} className="odd:bg-white even:bg-[#F8F9FC]">
+                  <td className="text-xs p-4 rounded-l-[20px] font-semibold">
+                    {item.service}
+                    <span className="flex flex-col gap-1 mt-1">
+                      <span className="text-[11px] text-[#04151ABF] font-normal">
+                        {item.description}
+                      </span>
                     </span>
-                  </span>
-                </td>
-                <td className="text-[11px] text-[#04151ABF] font-normal">
-                  {item.hours}
-                </td>
-                <td className="text-[11px] text-[#04151ABF] font-normal">
-                  {item.price}
-                </td>
-                <td className="text-[11px] text-[#04151ABF] font-normal rounded-r-[20px]">
-                  {item.total}
-                </td>
-              </tr>
-            ))} 
-            {/* <tr className="odd:bg-white even:bg-[#F8F9FC]">
-              <td className="text-xs p-4 rounded-l-[20px] font-semibold">
-                Branding
-                <span className="flex flex-col gap-1 mt-1">
-                  <span className="text-[11px] text-[#04151ABF] font-normal">
-                    Some service description
-                  </span>
-                  <span className="text-[11px] text-[#04151ABF] font-normal">
-                    Some service description
-                  </span>
-                </span>
-              </td>
-              <td className="text-[11px] text-[#04151ABF] font-normal">04</td>
-              <td className="text-[11px] text-[#04151ABF] font-normal">
-                25,000
-              </td>
-              <td className="text-[11px] text-[#04151ABF] font-normal rounded-r-[20px]">
-                34587
-              </td>
-            </tr>
-            <tr className="odd:bg-white even:bg-[#F8F9FC]">
-              <td className="text-xs p-4 rounded-l-[20px] font-semibold">
-                Branding
-                <span className="flex flex-col gap-1 mt-1">
-                  <span className="text-[11px] text-[#04151ABF] font-normal">
-                    Some service description
-                  </span>
-                  <span className="text-[11px] text-[#04151ABF] font-normal">
-                    Some service description
-                  </span>
-                </span>
-              </td>
-              <td className="text-[11px] text-[#04151ABF] font-normal">04</td>
-              <td className="text-[11px] text-[#04151ABF] font-normal">
-                25,000
-              </td>
-              <td className="text-[11px] text-[#04151ABF] font-normal rounded-r-[20px]">
-                34587
-              </td>
-            </tr>
-            <tr className="odd:bg-white even:bg-[#F8F9FC]">
-              <td className="text-xs p-4 rounded-l-[20px] font-semibold">
-                Branding
-                <span className="flex flex-col gap-1 mt-1">
-                  <span className="text-[11px] text-[#04151ABF] font-normal">
-                    Some service description
-                  </span>
-                  <span className="text-[11px] text-[#04151ABF] font-normal">
-                    Some service description
-                  </span>
-                </span>
-              </td>
-              <td className="text-[11px] text-[#04151ABF] font-normal">04</td>
-              <td className="text-[11px] text-[#04151ABF] font-normal">
-                25,000
-              </td>
-              <td className="text-[11px] text-[#04151ABF] font-normal rounded-r-[20px]">
-                34587
-              </td>
-            </tr>
-            <tr className="odd:bg-white even:bg-[#F8F9FC]">
-              <td className="text-xs p-4 rounded-l-[20px] font-semibold">
-                Branding
-                <span className="flex flex-col gap-1 mt-1">
-                  <span className="text-[11px] text-[#04151ABF] font-normal">
-                    Some service description
-                  </span>
-                  <span className="text-[11px] text-[#04151ABF] font-normal">
-                    Some service description
-                  </span>
-                </span>
-              </td>
-              <td className="text-[11px] text-[#04151ABF] font-normal">04</td>
-              <td className="text-[11px] text-[#04151ABF] font-normal">
-                25,000
-              </td>
-              <td className="text-[11px] text-[#04151ABF] font-normal rounded-r-[20px]">
-                34587
-              </td>
-            </tr> */}
+                  </td>
+                  <td className="text-[11px] text-[#04151ABF] font-normal">
+                    {item.hours}
+                  </td>
+                  <td className="text-[11px] text-[#04151ABF] font-normal">
+                    {item.price}
+                  </td>
+                  <td className="text-[11px] text-[#04151ABF] font-normal rounded-r-[20px]">
+                    {item.total}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
 
@@ -150,7 +75,7 @@ const Table = ({ quotationData }: any) => {
                 <div className="flex justify-between items-center mb-2">
                   <p className="lg:text-[10px] text-[8px]">sub total</p>
                   <p className="lg:text-[11px] text-[9px]">
-                    {quotationData.subTotal}
+                    {quotationData.totalAmount}
                   </p>
                 </div>
                 <div className="flex justify-between items-center">
@@ -165,7 +90,10 @@ const Table = ({ quotationData }: any) => {
                   <p className="lg:text-[11px] text-[8px] mr-7 lg:mr-0">
                     total price
                   </p>
-                  <p className="lg:text-[11px] text-[9px]">34587</p>
+                  <p className="lg:text-[11px] text-[9px]">
+                    {" "}
+                    {quotationData.totalAmount - quotationData.taxAmount}{" "}
+                  </p>
                 </div>
               </div>
             </div>

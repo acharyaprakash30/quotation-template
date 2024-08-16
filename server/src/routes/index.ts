@@ -38,13 +38,12 @@ router
         quotationService.map((item:{service:string,hours:string,price:string,total:number,description:string})=>{
              sum  =  sum + (Number(item.hours) * Number(item.price));
         })
-        sum = sum - Number(taxAmount);
+        // sum = sum - Number(taxAmount);
         if(sum < 0){
           throw new Error("Tax amount shouldnot be greater then total amount");
         }
       }
 
-      console.log(JSON.parse(quotationServices));
 
       let logo =req.files && req.files?.logo ?  req.files?.logo?.[0]?.filename : "";
       let managerSignature = req.files && req.files?.managerSignature ? req.files?.managerSignature?.[0]?.filename : "";
@@ -100,7 +99,12 @@ router
           },
         });
       }
-      res.status(200).json({ data: { ...req.body,logo,managerSignature }, message: "success" });
+      let quotationData = await prisma.quotation.findFirst({
+        include: {
+          company: true,
+        },
+      });
+      res.status(200).json({ data: { quotationData }, message: "success" });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
