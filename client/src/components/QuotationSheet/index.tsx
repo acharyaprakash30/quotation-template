@@ -73,7 +73,7 @@ const QuotationSheet = ({ quotationData }: any) => {
       <div className="py-5 lg:px-6 ">
         <div className=" m-auto float-right">
           <PDFDownloadLink
-            document={<PdfDownload />}
+            document={<PdfDownload quotationData={quotationData} />}
             fileName="quotation"
             className="px-4 py-2 bg-[#5850EB] text-white rounded-lg"
           >
