@@ -32,7 +32,7 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
-app.use('/uploads', express.static('public'));
+app.use('/api/v1/uploads', express.static('public'));
 
 app.use('/api/v1', router);
 
