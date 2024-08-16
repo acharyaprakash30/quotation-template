@@ -3,9 +3,37 @@ import React, { useState } from "react";
 import { BgImg } from "@app/constants/SvgCollection";
 import QuotationSheet from "@app/components/QuotationSheet";
 import QuotationForm from "@app/components/QuotationForm";
+import { PostQuotation } from "@app/app/api/submission";
 
 const page = () => {
   const [toggleForm, setToggleForm] = useState<boolean>(false);
+  const [subTotal, setSubTotal] = React.useState<number>(0);
+  const [quotationData, setQuotationData] = useState<any>();
+
+  const handleSubmit = (values: any) => {
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("manager", values.manager);
+    formData.append("quotationNumber", values.quotationNo);
+    formData.append("invoiceTo", values.invoiceTo);
+    formData.append("phoneNumber", values.phoneNumber);
+    formData.append("accountNumber", values.accountNumber);
+    formData.append("bankName", values.bankName);
+    formData.append("logo", values.logo);
+    formData.append("managerSignature", values.managerSignature);
+    formData.append("termsAndConditions", values.termsAndConditions);
+    formData.append("taxAmount", values.taxAmount);
+    formData.append("totalAmount", String(subTotal));
+    formData.append(
+      "quotationServices",
+      JSON.stringify(values.quotationServices)
+    );
+    PostQuotation(formData).then((response) => {
+      setQuotationData(response?.data);
+    });
+    setToggleForm(true);
+  };
+
   return (
     <div className="sheet-wrapper">
       <div className="relative w-full">
@@ -21,7 +49,11 @@ const page = () => {
             ${toggleForm ? "left-10" : "left-[28%]"}
              transition-all ease-in-out duration-300 z-50 bg-white  rounded-xl shadow-xl`}
         >
-          <QuotationForm toggle={setToggleForm} />
+          <QuotationForm
+            subTotal={subTotal}
+            setSubTotal={setSubTotal}
+            handleSubmit={handleSubmit}
+          />
         </div>
 
         <div
@@ -29,7 +61,7 @@ const page = () => {
             toggleForm ? "opacity-100 right-10 z-30" : "left-10 opacity-0 z-0"
           } transition-all ease-in-out duration-300`}
         >
-          <QuotationSheet />
+          {quotationData && <QuotationSheet quotationData={quotationData} />}
         </div>
       </div>
     </div>
