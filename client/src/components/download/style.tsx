@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   },
   bgStyle: {
     width: "100%",
-    height: "346px",
+    height: "350px",
     overflow: "hidden",
   },
   imgCover: {
@@ -43,8 +43,8 @@ export const styles = StyleSheet.create({
   },
 
   logo: {
-    width: "133.49px",
-    height: "37.46px",
+    width: "100%",
+    height: "100%",
   },
   wFull: {
     width: "100%",
@@ -67,9 +67,8 @@ export const styles = StyleSheet.create({
   },
 
   tableContainer: {
-    marginTop: "-200px",
+    transform: "translate(0px , -100px)",
     width: "100%",
-    height: "100%",
     padding: "24px 20px 0px 20px",
   },
   tableFlex: {
@@ -109,10 +108,10 @@ export const styles = StyleSheet.create({
   },
 
   tableBody: {
-    height: "100%",
     fontSize: "10px",
     fontWeight: 600,
   },
+
   oddRow: {
     backgroundColor: "white",
     display: "flex",

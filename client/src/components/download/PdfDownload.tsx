@@ -2,10 +2,9 @@
 import React from "react";
 import { Document, Image, Page, Text, View } from "@react-pdf/renderer";
 import { styles } from "./style";
-import logo from "@app/assets/images/logo.png";
 import bgImage from "@app/assets/images/bgImage.png";
 
-const PdfDownload = () => {
+const PdfDownload = ({ quotationData }: any) => {
   const tableHeader = [
     {
       id: 1,
@@ -24,118 +23,7 @@ const PdfDownload = () => {
       title: "Total",
     },
   ];
-  const tableData = [
-    {
-      id: 1,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-    {
-      id: 2,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-    {
-      id: 3,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-    {
-      id: 4,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-    {
-      id: 5,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-    {
-      id: 6,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-    {
-      id: 7,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-    {
-      id: 8,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-    {
-      id: 9,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-    {
-      id: 10,
-      title: "Branding",
-      hours: "10",
-      price: "2000",
-      total: "3454",
-      description: [
-        { desc: "Some service description" },
-        { desc: "Some service description" },
-      ],
-    },
-  ];
+  const tableData = JSON.parse(quotationData?.quotationServices);
 
   return (
     <Document style={styles.document}>
@@ -150,26 +38,37 @@ const PdfDownload = () => {
             <View style={styles.headerContent}>
               <View style={styles.heading}>
                 <View>
-                  <Image src={logo.src} style={styles.logo} />
+                <View style={{width: "133.49px",height: "37.46px",padding: "2px",}}>
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
+                    style={styles.logo}
+                  />
+                </View>
                   <Text style={styles.quotationText}>Quotation</Text>
                 </View>
                 <View style={styles.textSmall}>
                   <View style={styles.wrap}>
                     <View>
                       <Text>quotation no.</Text>
-                      <Text style={styles.text}>44832</Text>
+                      <Text style={styles.text}>
+                        {quotationData.quotationNumber}
+                      </Text>
                     </View>
                     <View>
                       <Text>created date</Text>
-                      <Text style={styles.text}>Jun 4, 2024</Text>
+                      <Text style={styles.text}>
+                        {quotationData.company.createdtAt}
+                      </Text>
                     </View>
                     <View>
                       <Text>invoice to</Text>
-                      <Text style={styles.text}>Mike Johnson</Text>
+                      <Text style={styles.text}>{quotationData.invoiceTo}</Text>
                     </View>
                     <View>
                       <Text>phone</Text>
-                      <Text style={styles.text}>+977-9843229846</Text>
+                      <Text style={styles.text}>
+                        {quotationData.company.phoneNumber}
+                      </Text>
                     </View>
                   </View>
                 </View>
@@ -191,7 +90,7 @@ const PdfDownload = () => {
                     </View>
                   </View>
                   <View style={styles.spacing}>
-                    {tableData.map((table, index) => (
+                    {tableData.map((table: any, index: number) => (
                       <View
                         key={table.id}
                         style={[
@@ -199,15 +98,13 @@ const PdfDownload = () => {
                         ]}
                       >
                         <View style={styles.bodyText}>
-                          <Text>{table.title}</Text>
-                          {table.description.map((description, index) => (
-                            <View style={styles.description} key={index}>
-                              ƒ
-                              <Text style={styles.textDescription}>
-                                {description.desc}
-                              </Text>
-                            </View>
-                          ))}
+                          <Text style={{fontWeight:"bold"}}>{table.service}</Text>
+
+                          <View style={styles.description} key={index}>
+                            <Text style={styles.textDescription}>
+                              {table.description}
+                            </Text>
+                          </View>
                         </View>
                         <Text
                           style={[
@@ -258,7 +155,7 @@ const PdfDownload = () => {
                             Account No. :
                           </Text>
                           <Text style={styles.fontSemibold}>
-                            423756495744832
+                            {quotationData.accountNumber}
                           </Text>
                         </View>
                         <View
@@ -273,7 +170,9 @@ const PdfDownload = () => {
                           >
                             Bank Name :
                           </Text>
-                          <Text style={styles.fontSemibold}>HBL Bank Ltd.</Text>
+                          <Text style={styles.fontSemibold}>
+                            {quotationData.bankName}
+                          </Text>
                         </View>
                       </View>
                     </View>
@@ -302,7 +201,9 @@ const PdfDownload = () => {
                           }}
                         >
                           <Text style={{ fontSize: "10px" }}>sub total</Text>
-                          <Text style={{ fontSize: "10px" }}>34587</Text>
+                          <Text style={{ fontSize: "10px" }}>
+                            {quotationData.totalAmount}
+                          </Text>
                         </View>
                         <View
                           style={{
@@ -313,7 +214,10 @@ const PdfDownload = () => {
                           }}
                         >
                           <Text style={{ fontSize: "10px" }}>tax</Text>
-                          <Text style={{ fontSize: "10px" }}> 34587</Text>
+                          <Text style={{ fontSize: "10px" }}>
+                            {" "}
+                            {quotationData.taxAmount}
+                          </Text>
                         </View>
                       </View>
                       <View
@@ -335,7 +239,10 @@ const PdfDownload = () => {
                           }}
                         >
                           <Text style={{ fontSize: "10px" }}>total price</Text>
-                          <Text style={{ fontSize: "10px" }}>34587</Text>
+                          <Text style={{ fontSize: "10px" }}>
+                            {quotationData.totalAmount -
+                              quotationData.taxAmount}
+                          </Text>
                         </View>
                       </View>
                     </View>
@@ -345,8 +252,14 @@ const PdfDownload = () => {
             </View>
           </View>
 
-          <View style={{ marginTop: "-30px"}}>
-            <View style={{width: "90%" ,margin:"0px auto", padding: "20px 20px 0px 20px" }}>
+          <View>
+            <View
+              style={{
+                width: "90%",
+                margin: "0px auto",
+                padding: "20px 20px 0px 20px",
+              }}
+            >
               <View
                 style={{
                   display: "flex",
@@ -355,7 +268,7 @@ const PdfDownload = () => {
                   alignItems: "flex-end",
                 }}
               >
-                <View style={{ width: "66.666667%" }}>
+                <View style={{ width: "66.67%" }}>
                   <Text
                     style={{
                       fontSize: "10px",
@@ -365,13 +278,24 @@ const PdfDownload = () => {
                   >
                     terms & conditions
                   </Text>
-                  <Text style={{ fontSize: "11px", marginTop: "12px", lineHeight: "1.5px" }}>
-                    It is a long established fact that a reader will be
-                    distracted by the readable content of a page when looking
-                    there.
+                  <Text
+                    style={{
+                      fontSize: "11px",
+                      marginTop: "12px",
+                      lineHeight: "1.5px",
+                    }}
+                  >
+                    {quotationData.termsAndConditions}
                   </Text>
                 </View>
                 <View>
+                <View style={{width: "100px", height: "100px" ,margin:"0px auto"}}>
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.managerSignature}`}
+                    style={styles.logo}
+                  />
+                  </View>
+
                   <View
                     style={{
                       padding: "8px 32px",
@@ -384,7 +308,7 @@ const PdfDownload = () => {
                     }}
                   >
                     <Text style={{ fontSize: "12px", fontWeight: "semibold" }}>
-                      Merlyn Devon
+                      {quotationData.company.manager}
                     </Text>
                     <Text style={{ fontSize: "11px", color: "#04151ABF" }}>
                       Associate Manager
@@ -395,7 +319,7 @@ const PdfDownload = () => {
             </View>
             <View
               style={{
-                marginTop: "26px",
+                marginTop: "24px",
                 padding: "16px 0px",
                 textAlign: "center",
                 backgroundColor: "#5850EB0D",
