@@ -29,7 +29,7 @@ const fileFilter = (
   if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    req.fileError = "Upload Supported file (jpeg/jpg/pdf/png)";
+    req.fileError = "Upload Supported file (jpeg/jpg or png)";
     cb(null, false);
   }
 };
