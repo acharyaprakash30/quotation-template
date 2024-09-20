@@ -29,9 +29,13 @@ const page = () => {
       JSON.stringify(values.quotationServices)
     );
     PostQuotation(formData).then((response) => {
-      setQuotationData(response?.data?.quotationData);
+      if (response) {
+        setQuotationData(response?.data?.quotationData);
+        setToggleForm(true);
+      } else {
+        console.log("Error");
+      }
     });
-    setToggleForm(true);
   };
 
   return (
