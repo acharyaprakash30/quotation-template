@@ -37,8 +37,12 @@ const page = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
-        toast.error("error");
+        if (error.response.data.error.logo) {
+          toast.error(error.response.data.error.logo);
+        } else {
+          toast.error("Error Generating Quotation!");
+        }
+        setToggleForm(false);
       });
   };
 

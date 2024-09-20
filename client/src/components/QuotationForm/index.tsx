@@ -9,11 +9,11 @@ import FileUpload from "../shared/FileUpload";
 const QuotationForm = ({
   subTotal,
   setSubTotal,
-  handleSubmit
+  handleSubmit,
 }: {
   subTotal: number;
   setSubTotal: any;
-  handleSubmit: (values:any)=> void;
+  handleSubmit: (values: any) => void;
 }) => {
   const calculateTotal = (
     hours: number | string,
@@ -25,13 +25,11 @@ const QuotationForm = ({
   };
 
   const calculateSubtotal = (quotation: any[]): number => {
-
     return quotation.reduce(
       (acc, curr) => acc + (parseFloat(curr.total) || 0),
       0
     );
   };
-
 
   return (
     <div>
@@ -47,6 +45,8 @@ const QuotationForm = ({
           logo: null,
           managerSignature: null,
           termsAndConditions: "",
+          taxAmount: 0,
+          totalAmount: 0,
           quotationServices: [
             {
               service: "",
@@ -239,10 +239,8 @@ const QuotationForm = ({
                       customOnChange={(
                         event: React.ChangeEvent<HTMLInputElement>
                       ) => {
-                        const value = Number(event.target.value);
-                        const subTotalValue = Number()
-                        let valueAfterTax = Number(subTotal) - value;
-                        console.log(value,"------",subTotal)
+                        const value = Number(event.target.value) || 0;
+                        let valueAfterTax = subTotal - value;
                         if (valueAfterTax < 0) {
                           setFieldValue("taxAmount", 0);
                         } else {

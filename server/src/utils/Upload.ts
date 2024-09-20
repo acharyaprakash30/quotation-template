@@ -20,52 +20,55 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
-  const allowedMimeTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif", "application/pdf","image/vnd.microsoft.icon"];
+const fileFilter = (
+  req: Request,
+  file: Express.Multer.File,
+  cb: FileFilterCallback
+) => {
+  const allowedMimeTypes = ["image/jpeg", "image/jpg", "image/png"];
   if (allowedMimeTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    req.fileError = "Upload image file (jpeg/jpg,pdf, png, or gif)!";
+    req.fileError = "Upload Supported file (jpeg/jpg/pdf/png)";
     cb(null, false);
   }
 };
 
 const uploadMiddleware = (fields: { name: string; maxCount: number }[]) => {
-    return (req: Request, res: Response, next: NextFunction) => {
-      const upload = multer({
-        storage: storage,
-        limits: {
-          fileSize: 1024 * 1024 * 5, // 5MB
-        },
-        fileFilter: fileFilter,
-      }).fields(fields);
-  
-      upload(req, res, (err: any) => {
-        if (err instanceof multer.MulterError) {
-          return res.status(500).json({
-            success: false,
-            error: "Multer error",
-          });
-        }
-        if (req.fileError) {
-          return res.status(415).json({
-            success: false,
-            error: {
-              logo: req.fileError,
-            },
-          });
-        } else if (err) {
-          console.error(err);
-          return res.status(500).json({
-            success: false,
-            error: "Server Error",
-          });
-        }
-  
-        next();
-      });
-    };
+  return (req: Request, res: Response, next: NextFunction) => {
+    const upload = multer({
+      storage: storage,
+      limits: {
+        fileSize: 1024 * 1024 * 5, // 5MB
+      },
+      fileFilter: fileFilter,
+    }).fields(fields);
+
+    upload(req, res, (err: any) => {
+      if (err instanceof multer.MulterError) {
+        return res.status(500).json({
+          success: false,
+          error: "Multer error",
+        });
+      }
+      if (req.fileError) {
+        return res.status(415).json({
+          success: false,
+          error: {
+            logo: req.fileError,
+          },
+        });
+      } else if (err) {
+        console.error(err);
+        return res.status(500).json({
+          success: false,
+          error: "Server Error",
+        });
+      }
+
+      next();
+    });
   };
-  
-  export default uploadMiddleware;
-  
+};
+
+export default uploadMiddleware;
