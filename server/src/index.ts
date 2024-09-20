@@ -13,6 +13,7 @@ dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 5000;
+
 // set security HTTP headers
 app.use(helmet());
 
@@ -32,7 +33,12 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
-app.use('/uploads', express.static('public'));
+if(process.env.NODE_ENV == 'development'){
+  app.use('/api/v1/uploads', express.static('public'));
+}else{
+  console.log("--production---");
+  app.use('/api/v1/uploads', express.static('dist/public'));
+}
 
 app.use('/api/v1', router);
 

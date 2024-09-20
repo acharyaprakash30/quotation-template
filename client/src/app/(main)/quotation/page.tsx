@@ -4,6 +4,7 @@ import { BgImg } from "@app/constants/SvgCollection";
 import QuotationSheet from "@app/components/QuotationSheet";
 import QuotationForm from "@app/components/QuotationForm";
 import { PostQuotation } from "@app/app/api/submission";
+import toast from "react-hot-toast";
 
 const page = () => {
   const [toggleForm, setToggleForm] = useState<boolean>(false);
@@ -28,14 +29,17 @@ const page = () => {
       "quotationServices",
       JSON.stringify(values.quotationServices)
     );
-    PostQuotation(formData).then((response) => {
-      if (response) {
-        setQuotationData(response?.data?.quotationData);
-        setToggleForm(true);
-      } else {
-        console.log("Error");
-      }
-    });
+    PostQuotation(formData)
+      .then((response) => {
+        if (response?.data) {
+          setQuotationData(response?.data?.data?.quotationData);
+          setToggleForm(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("error");
+      });
   };
 
   return (

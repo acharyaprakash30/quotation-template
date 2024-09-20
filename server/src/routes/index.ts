@@ -4,6 +4,16 @@ import uploadMiddleware from "../utils/Upload";
 
 const router = express.Router();
 router
+  .route("/")
+  .get( async (req, res) => {
+    try {
+      res.status(200).json({ data: "welcome to quotation api", message: "success" });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  })
+
+router
   .route("/quotation")
   .get( async (req, res) => {
     try {
