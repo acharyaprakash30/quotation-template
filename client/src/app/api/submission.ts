@@ -7,7 +7,6 @@ export const PostQuotation = async (values: any) => {
     },
   });
   if (response) {
-    console.log(response);
     return response;
   }
 };
