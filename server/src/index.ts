@@ -1,12 +1,10 @@
 // src/index.js
-import express, { Express, Request, Response } from "express";
 import compression from 'compression';
 import cors from 'cors';
+import express, { Express } from "express";
 import helmet from 'helmet';
-import httpStatus from 'http-status';
 
 import dotenv from "dotenv";
-import ApiError from "./utils/ApiError";
 import router from "./routes";
 
 dotenv.config();
@@ -33,11 +31,10 @@ app.use(compression());
 app.use(cors());
 app.options('*', cors());
 
-if(process.env.NODE_ENV == 'development'){
-  app.use('/api/v1/uploads', express.static('public'));
-}else{
-  console.log("--production---");
-  app.use('/api/v1/uploads', express.static('dist/public'));
+if (process.env.NODE_ENV == 'deployment') {
+  app.use('/api/v1/uploads', express.static('dist/uploads'));
+} else {
+  app.use('/api/v1/uploads', express.static('uploads'));
 }
 
 app.use('/api/v1', router);

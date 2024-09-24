@@ -1,6 +1,7 @@
 import multer, { FileFilterCallback } from "multer";
 import path from "path";
 import { Request, Response, NextFunction } from "express";
+import fs from 'fs';
 
 declare module "express-serve-static-core" {
   interface Request {
@@ -10,8 +11,10 @@ declare module "express-serve-static-core" {
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    const uploadPath = path.join(__dirname, "../../public/");
-    console.log("Upload Path:", uploadPath);
+    const uploadPath = path.join(__dirname, '../../uploads/');
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true }); // recursive option ensures that nested directories are created if needed
+    }
     callback(null, uploadPath);
   },
   filename: (req, file, callback) => {
