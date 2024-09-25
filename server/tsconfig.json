@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2016",
     "rootDir": "./src",
-    "outDir": "./dist",
+    "outDir": "./public",
     "module": "commonjs",
     "types": ["node"],
     "resolveJsonModule": true,
