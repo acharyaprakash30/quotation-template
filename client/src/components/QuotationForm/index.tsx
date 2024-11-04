@@ -10,10 +10,12 @@ const QuotationForm = ({
   subTotal,
   setSubTotal,
   handleSubmit,
+  loading
 }: {
   subTotal: number;
   setSubTotal: any;
   handleSubmit: (values: any) => void;
+  loading: boolean;
 }) => {
   const calculateTotal = (
     hours: number | string,
@@ -272,7 +274,15 @@ const QuotationForm = ({
                       type="submit"
                       className="text-white bg-[#5850EB] px-5 py-2 rounded w-full "
                     >
-                      Submit
+                      {
+                        loading ? (
+                          <div className="flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
+                          </div>
+                        ) : (
+                          "Submit"
+                        )
+                      }
                     </button>
                   </div>
                 </div>

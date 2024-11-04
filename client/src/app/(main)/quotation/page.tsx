@@ -10,8 +10,10 @@ const page = () => {
   const [toggleForm, setToggleForm] = useState<boolean>(false);
   const [subTotal, setSubTotal] = React.useState<number>(0);
   const [quotationData, setQuotationData] = useState<any>();
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   const handleSubmit = (values: any) => {
+    setLoading(true);
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("manager", values.manager);
@@ -31,12 +33,14 @@ const page = () => {
     );
     PostQuotation(formData)
       .then((response) => {
+        setLoading(false);
         if (response?.data) {
           setQuotationData(response?.data?.data?.quotationData);
           setToggleForm(true);
         }
       })
       .catch((error) => {
+        setLoading(false);
         if (error.response.data.error.logo) {
           toast.error(error.response.data.error.logo);
         } else {
@@ -65,6 +69,7 @@ const page = () => {
             subTotal={subTotal}
             setSubTotal={setSubTotal}
             handleSubmit={handleSubmit}
+            loading={loading}
           />
         </div>
 
