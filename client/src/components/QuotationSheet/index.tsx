@@ -16,48 +16,49 @@ const QuotationSheet = ({ quotationData }: any) => {
   const date = new Date(dateString);
   const formattedDate = date.toLocaleDateString("en-CA");
 
-  console.log(formattedDate);
-
-  console.log(quotationData, "--------data");
   return (
     <div className="bg-white drop-shadow-md rounded-2xl">
       <div className="lg:py-12 p-4 lg:px-6 ">
-        <div className="flex justify-between lg:gap-16 gap-10 text-black uppercase">
+        <div className="flex justify-between xl:gap-16 gap-10 text-black uppercase">
           <div>
-            <div className="lg:w-[133.49px] w-[50px]">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
-                alt="logo"
-                className="w-full"
-                width={100}
-                height={100}
-              />
-            </div>
-            <p className="lg:text-6xl font-semibold mt-2">Quotation</p>
+            {quotationData.company.logo && (
+              <div className="lg:w-[133.49px] w-[50px]">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
+                  alt="logo"
+                  className="w-full"
+                  width={100}
+                  height={100}
+                />
+              </div>
+            )}
+            <p className="lg:text-4xl xl:text-6xl font-semibold mt-2">
+              Quotation
+            </p>
           </div>
-          <div className="lg:text-[10px] text-[8px] font-semibold">
-            <div className="flex justify-start gap-2 lg:gap-10">
+          <div className="lg:text-[10px] text-[8px] font-semibold flex lg:gap-4 xl:gap-10">
+            <div className="flex-1 ">
               <div>
                 <p>quotation no.</p>
                 <p className="lg:text-sm text-[10px] font-normal text-black/60 capitalize">
                   {quotationData.quotationNumber}
                 </p>
               </div>
+              <div className="lg:mt-10 mt-2">
+                <p>invoice to</p>
+                <p className="lg:text-sm text-[10px] font-normal text-black/60 capitalize">
+                  {quotationData.invoiceTo}
+                </p>
+              </div>
+            </div>
+            <div className="flex-1">
               <div>
                 <p>created date</p>
                 <p className="lg:text-sm text-[10px]  font-normal text-black/60 capitalize">
                   {formattedDate}
                 </p>
               </div>
-            </div>
-            <div className="flex justify-start gap-2 lg:gap-10 lg:mt-10 mt-2">
-              <div>
-                <p>invoice to</p>
-                <p className="lg:text-sm text-[10px] font-normal text-black/60 capitalize">
-                  {quotationData.invoiceTo}
-                </p>
-              </div>
-              <div>
+              <div className="lg:mt-10 mt-2">
                 <p>phone</p>
                 <p className="lg:text-sm text-[10px]  font-normal text-black/60 capitalize">
                   {quotationData.company.phoneNumber}
@@ -93,7 +94,7 @@ const QuotationSheet = ({ quotationData }: any) => {
             <div>
               <Image
                 src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.managerSignature}`}
-                alt="logo"
+                alt="signature"
                 className="w-1/2 m-auto"
                 width={100}
                 height={100}

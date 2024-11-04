@@ -24,7 +24,9 @@ const PdfDownload = ({ quotationData }: any) => {
     },
   ];
   const tableData = JSON.parse(quotationData?.quotationServices);
-
+  const dateString = quotationData.company.createdAt;
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString("en-CA");
   return (
     <Document style={styles.document}>
       <Page size="A4">
@@ -38,12 +40,18 @@ const PdfDownload = ({ quotationData }: any) => {
             <View style={styles.headerContent}>
               <View style={styles.heading}>
                 <View>
-                <View style={{width: "133.49px",height: "37.46px",padding: "2px",}}>
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
-                    style={styles.logo}
-                  />
-                </View>
+                  <View
+                    style={{
+                      width: "133.49px",
+                      height: "37.46px",
+                      padding: "2px",
+                    }}
+                  >
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
+                      style={styles.logo}
+                    />
+                  </View>
                   <Text style={styles.quotationText}>Quotation</Text>
                 </View>
                 <View style={styles.textSmall}>
@@ -57,7 +65,7 @@ const PdfDownload = ({ quotationData }: any) => {
                     <View>
                       <Text>created date</Text>
                       <Text style={styles.text}>
-                        {quotationData.company.createdtAt}
+                        {formattedDate}
                       </Text>
                     </View>
                     <View>
@@ -98,7 +106,9 @@ const PdfDownload = ({ quotationData }: any) => {
                         ]}
                       >
                         <View style={styles.bodyText}>
-                          <Text style={{fontWeight:"bold"}}>{table.service}</Text>
+                          <Text style={{ fontWeight: "bold" }}>
+                            {table.service}
+                          </Text>
 
                           <View style={styles.description} key={index}>
                             <Text style={styles.textDescription}>
@@ -289,11 +299,17 @@ const PdfDownload = ({ quotationData }: any) => {
                   </Text>
                 </View>
                 <View>
-                <View style={{width: "100px", height: "100px" ,margin:"0px auto"}}>
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.managerSignature}`}
-                    style={styles.logo}
-                  />
+                  <View
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      margin: "0px auto",
+                    }}
+                  >
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.managerSignature}`}
+                      style={styles.logo}
+                    />
                   </View>
 
                   <View

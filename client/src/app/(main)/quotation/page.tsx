@@ -55,11 +55,11 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="lg:p-0 p-4 relative w-full border border-black flex lg:flex-row flex-col z-50">
+      <div className="lg:p-0 p-4 relative w-full flex lg:flex-row flex-col gap-10 z-50">
         <div
-          className={`absolute top-40 lg:w-[624px] overflow-hidden
-            ${toggleForm ? "left-10" : "left-[28%]"}
-             transition-all ease-in-out duration-300 z-50 bg-white  rounded-xl shadow-xl`}
+          className={`lg:absolute top-40 overflow-hidden
+            ${toggleForm ? "lg:left-4 xl:left-6 lg:w-[48%]" : "left-[28%] lg:w-1/2"}
+             transition-all ease-in-out duration-300 z-50 bg-white rounded-xl shadow-xl`}
         >
           <QuotationForm
             subTotal={subTotal}
@@ -69,11 +69,13 @@ const page = () => {
         </div>
 
         <div
-          className={`lg:w-[700px] absolute top-40 ${
-            toggleForm ? "opacity-100 right-10 z-30" : "left-10 opacity-0 z-0"
+          className={`lg:absolute top-40 lg:my-0 my-10 ${
+            toggleForm ? "opacity-100 lg:right-4 xl:right-6 z-30 lg:w-[48%]" : "left-10 opacity-0 z-0 w-1/2"
           } transition-all ease-in-out duration-300`}
         >
-          {quotationData && <QuotationSheet quotationData={quotationData} />}
+          {quotationData && 
+          <QuotationSheet quotationData={quotationData} />
+          }
         </div>
       </div>
     </div>
