@@ -18,12 +18,12 @@ const QuotationForm = ({
   loading: boolean;
 }) => {
   const calculateTotal = (
-    hours: number | string,
+    quantity: number | string,
     price: number | string
   ): number => {
-    const validHours = parseFloat(hours as string) || 0;
+    const validquantity = parseFloat(quantity as string) || 0;
     const validPrice = parseFloat(price as string) || 0;
-    return validHours * validPrice;
+    return validquantity * validPrice;
   };
 
   const calculateSubtotal = (quotation: any[]): number => {
@@ -40,21 +40,29 @@ const QuotationForm = ({
           name: "",
           manager: "",
           quotationNo: "",
-          invoiceTo: "",
+          quotationDate: new Date().toISOString().split("T")[0],
+          validDate: new Date().toISOString().split("T")[0],
+          email:"",
+          clientEmail:"",
+          // invoiceTo: "",
           phoneNumber: "",
           accountNumber: "",
           bankName: "",
           logo: null,
           managerSignature: null,
+          clientLogo:null,
           termsAndConditions: "",
           taxAmount: 0,
           totalAmount: 0,
+          address: "",
+          clientName: "",
+          clientAddress: "",
           quotationServices: [
             {
               service: "",
-              hours: "",
-              price: "",
-              total: "",
+              quantity: 0,
+              price: 0,
+              total: 0,
               description: "",
             },
           ],
@@ -64,21 +72,68 @@ const QuotationForm = ({
       >
         {({ values, setFieldValue }) => (
           <Form className="px-5 py-10">
+
             <div>
               <p className="text-[#5850EB] text-xl font-semibold pb-4">
-                Company Details
+                Quotation Details
               </p>
-              <div className="grid grid-cols-2 gap-4 items-start ">
-                <FileUpload
+              <div className="grid grid-cols-2 gap-4 items-start bg-gray-100 p-5 rounded-xl ">
+              
+                <InputField
+                  name={"quotationNo"}
+                  label="Quotation No"
+                  placeholder="eg: 124532"
+                />
+                <InputField
+                  name={"quotationDate"}
+                  label="Quotation Date"
+                  placeholder="eg: 124532"
+                  type="date"
+                  initialValue={new Date().toISOString().split("T")[0]}
+                />
+                <InputField
+                  name={"validDate"}
+                  label="Valid Till Date"
+                  placeholder="eg: 124532"
+                  type="date"
+                  initialValue={new Date().toISOString().split("T")[0]}
+                />
+         
+              </div>
+            </div>
+            <div>
+              <p className="text-[#5850EB] text-xl font-semibold py-4 mt-8">
+                Business Details
+              </p>
+              <p className="text-[#5C6269] font-semibold text-xs uppercase">Quotation From</p>
+              <div className=" col-span-2 grid grid-cols-2 p-5 gap-4 mt-2 mb-4 bg-gray-100 rounded-xl">
+              <FileUpload
                   value={setFieldValue}
                   name={"logo"}
-                  label="Upload Logo"
+                  label="Business Logo"
                   uploadedValue={values.logo}
                 />
                 <InputField
                   name={"name"}
-                  label="Company Name"
+                  label="Business Name"
                   placeholder="eg: Milo logic"
+                />
+                <InputField
+                  name={"address"}
+                  label="Business Address"
+                  placeholder="eg: Kathmandu"
+                />
+                          <InputField
+                  name={"email"}
+                  label="Business Email"
+                  placeholder="eg: example@test.com"
+                />
+             
+           
+                     <InputField
+                  name={"phoneNumber"}
+                  label="Contact Number"
+                  placeholder="eg: 9806960766"
                 />
                 <InputField
                   name={"manager"}
@@ -91,31 +146,6 @@ const QuotationForm = ({
                   label="Upload Manager Signature"
                   uploadedValue={values.managerSignature}
                 />
-                <div className="col-span-2">
-                  <InputField
-                    name={"phoneNumber"}
-                    label="Phone Number"
-                    placeholder="eg: 9806960766"
-                  />
-                </div>
-              </div>
-            </div>
-            <div>
-              <p className="text-[#5850EB] text-xl font-semibold py-4 mt-8">
-                Quotation Details
-              </p>
-              <div className="grid grid-cols-2 gap-4 items-start ">
-                <InputField
-                  name={"quotationNo"}
-                  label="Quotation No"
-                  placeholder="eg: 124532"
-                />
-                <InputField
-                  name={"invoiceTo"}
-                  label="Invoice To"
-                  placeholder="eg: Mr.Harihar"
-                />
-
                 <InputField
                   name={"bankName"}
                   label="Bank Name"
@@ -126,30 +156,62 @@ const QuotationForm = ({
                   label="Account Number"
                   placeholder="eg: 15776457738972"
                 />
+           
               </div>
             </div>
+
+            <p className="text-[#5C6269] font-semibold text-xs uppercase mt-8">Quotation For</p>
+            <div className=" col-span-2 grid grid-cols-2 p-5 gap-4 mt-2 mb-4 bg-gray-100 rounded-xl">
+            <FileUpload
+                value={setFieldValue}
+                name={"clientLogo"}
+                label="Business Logo"
+                uploadedValue={values.clientLogo}
+              />
+              <InputField
+                name={"clientName"}
+                label="Business Name"
+                placeholder="eg: Milo logic"
+              />
+              <InputField
+                name={"clientAddress"}
+                label="Business Address"
+                placeholder="eg: Kathmandu"
+              />
+                  <InputField
+                  name={"clientEmail"}
+                  label="Business Email"
+                  placeholder="eg: example@test.com"
+                />
+           
+
+            </div>
+            <p className="text-[#5850EB] text-xl font-semibold mt-8">
+                Quotations
+              </p>
+
             <FieldArray
               name="quotationServices"
               render={(arrayHelpers) => (
-                <div className="flex flex-col gap-4 mt-8">
+                <div className="flex flex-col gap-4 mt-4">
                   {values.quotationServices &&
                     values.quotationServices.length > 0 &&
                     values.quotationServices.map((item, index) => (
-                      <div key={index}>
-                        <div className="mt-2 flex items-center justify-between gap-2">
-                          <p className="text-[#5850EB] text-xl font-semibold py-4 mt-8">
-                            Quotation
-                          </p>
-                          <div className="mt-2 flex items-center justify-end gap-2">
+                      <div key={index} className="bg-gray-100 p-5 rounded-xl">
+                        <div className=" flex items-center justify-between gap-2 mb-4">
+                          {/* <p className="text-[#5850EB] text-xl font-semibold py-4 ">
+                            Quotation {index +1 }
+                          </p> */}
+                          <p className="text-[#5C6269] font-semibold text-xl  py-4">Quotation {index+1}</p>
+                          <div className=" flex items-center justify-end gap-2">
                             <button
                               type="button"
                               disabled={values.quotationServices.length === 1}
                               onClick={() => arrayHelpers.remove(index)}
-                              className={`${
-                                values.quotationServices.length === 1
-                                  ? "bg-gray-500 cursor-not-allowed"
-                                  : "bg-red-500 cursor-pointer"
-                              } text-white p-2 rounded-xl w-fit`}
+                              className={`${values.quotationServices.length === 1
+                                ? "bg-gray-500 cursor-not-allowed"
+                                : "bg-red-500 cursor-pointer"
+                                } text-white p-2 rounded-xl w-fit`}
                             >
                               <DeleteIcon />
                             </button>
@@ -160,7 +222,7 @@ const QuotationForm = ({
                                 onClick={() =>
                                   arrayHelpers.push({
                                     service: "",
-                                    hours: "",
+                                    quantity: "",
                                     price: "",
                                     total: "",
                                     description: "",
@@ -202,17 +264,17 @@ const QuotationForm = ({
                                     value
                                   );
 
-                                  if (key === "hours" || key === "price") {
-                                    const hours =
-                                      key === "hours"
+                                  if (key === "quantity" || key === "price") {
+                                    const quantity =
+                                      key === "quantity"
                                         ? parseFloat(value)
-                                        : item.hours;
+                                        : item.quantity;
                                     const price =
                                       key === "price"
                                         ? parseFloat(value)
                                         : item.price;
 
-                                    const total = calculateTotal(hours, price);
+                                    const total = calculateTotal(quantity, price);
                                     setFieldValue(
                                       `quotationServices[${index}].total`,
                                       total
@@ -233,7 +295,8 @@ const QuotationForm = ({
                         </div>
                       </div>
                     ))}
-                  <div className="mt-2 grid grid-cols-2 items-start gap-4">
+              
+                  <div className="mt-2 grid grid-cols-2 items-start gap-4 p-5 bg-gray-100 rounded-xl ">
                     <InputField
                       name={"taxAmount"}
                       label="Tax Amount"

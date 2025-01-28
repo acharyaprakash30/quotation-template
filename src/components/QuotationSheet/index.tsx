@@ -18,55 +18,69 @@ const QuotationSheet = ({ quotationData }: any) => {
 
   return (
     <div className="bg-white drop-shadow-md rounded-2xl">
-      <div className="lg:py-12 p-4 lg:px-6 ">
-        <div className="flex justify-between xl:gap-16 gap-10 text-black uppercase">
-          <div>
-            {quotationData.company.logo && (
-              <div className="lg:w-[133.49px] w-[50px]">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
-                  alt="logo"
-                  className="w-full"
-                  width={100}
-                  height={100}
-                />
-              </div>
-            )}
-            <p className="lg:text-4xl xl:text-6xl font-semibold mt-2">
-              Quotation
-            </p>
-          </div>
-          <div className="lg:text-[10px] text-[8px] font-semibold flex lg:gap-4 xl:gap-10">
-            <div className="flex-1 ">
-              <div>
-                <p>quotation no.</p>
-                <p className="lg:text-sm text-[10px] font-normal text-black/60 capitalize">
-                  {quotationData.quotationNumber}
-                </p>
-              </div>
-              <div className="lg:mt-10 mt-2">
-                <p>invoice to</p>
-                <p className="lg:text-sm text-[10px] font-normal text-black/60 capitalize">
-                  {quotationData.invoiceTo}
-                </p>
-              </div>
-            </div>
-            <div className="flex-1">
-              <div>
-                <p>created date</p>
-                <p className="lg:text-sm text-[10px]  font-normal text-black/60 capitalize">
-                  {formattedDate}
-                </p>
-              </div>
-              <div className="lg:mt-10 mt-2">
-                <p>phone</p>
-                <p className="lg:text-sm text-[10px]  font-normal text-black/60 capitalize">
-                  {quotationData.company.phoneNumber}
-                </p>
-              </div>
-            </div>
+      <div className="lg:py-8 p-4 lg:px-6 ">
+        <div className="flex flex-wrap justify-between">
+          <p className="lg:text-xl xl:text-4xl font-semibold mt-2">
+            Quotation
+          </p>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+            <p className=" text-xs text-black capitalize">Quotation Number</p>
+            <p className="lg:text-xs text-xs font-medium text-black/60 "> {quotationData.quotationNumber}</p>
+            <p className="text-xs text-black capitalize">Date</p>
+            <p className="lg:text-xs text-xs font-medium text-black/60 "> {quotationData.quotationDate}</p>
+            <p className="text-xs text-black capitalize">Valid Till Date</p>
+            <p className="lg:text-xs text-xs font-medium text-black/60 "> {quotationData.validDate}</p>
           </div>
         </div>
+        <div className="flex justify-between mt-10">
+          <div>
+            <p className="text-xs font-normal ">Quotation From: </p>
+
+            <div className="flex gap-4 my-4">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
+                alt="logo"
+                className="w-[80px] h-[80px] "
+                width={100}
+                height={100}
+              />
+              <div>
+                <p className="lg:text-xs text-xs font-normal text-black capitalize">
+                  {quotationData.clientName}
+                </p>
+                <p className="text-[10px] font-normal text-black/60 capitalize">
+                  {quotationData.clientEmail}
+                </p>
+                <p className="text-[10px] font-normal text-black/60 capitalize">
+                  {quotationData.clientAddress}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-normal">Quotation To: </p>
+            <div className="flex justify-end gap-4 my-4">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
+                alt="logo"
+                className="w-[80px] h-[80px] "
+                width={100}
+                height={100}
+              />
+
+              <div>
+                <p className="lg:text-xs text-xs font-semibold text-black capitalize">{quotationData.company.name}</p>
+                <p className="lg:text-[10px] text-[10px] font-normal text-black/60 ">{quotationData.company.email}</p>
+                <p className="lg:text-[10px] text-[10px] font-normal text-black/60 ">{quotationData.company.address}</p>
+                <p className="lg:text-[10px] text-[10px] font-normal text-black/60 ">{quotationData.company.phoneNumber}</p>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
       </div>
       <div className="lg:p-4 p-2">
         <Table quotationData={quotationData} />

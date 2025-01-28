@@ -18,7 +18,8 @@ const page = () => {
     formData.append("name", values.name);
     formData.append("manager", values.manager);
     formData.append("quotationNumber", values.quotationNo);
-    formData.append("invoiceTo", values.invoiceTo);
+    formData.append("quotationDate", values.quotationDate);
+    formData.append("validDate", values.validDate);
     formData.append("phoneNumber", values.phoneNumber);
     formData.append("accountNumber", values.accountNumber);
     formData.append("bankName", values.bankName);
@@ -27,6 +28,14 @@ const page = () => {
     formData.append("termsAndConditions", values.termsAndConditions);
     formData.append("taxAmount", values.taxAmount);
     formData.append("totalAmount", String(subTotal));
+    formData.append("clientLogo", values.clientLogo);
+    formData.append("clientName", values.clientName);
+    formData.append("clientAddress", values.clientAddress);
+    formData.append("address", values.address);
+    formData.append("email", values.email);
+    formData.append("clientEmail", values.clientEmail);
+
+
     formData.append(
       "quotationServices",
       JSON.stringify(values.quotationServices)
