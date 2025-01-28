@@ -16,7 +16,7 @@ const Table = ({ quotationData }: any) => {
           <thead className="text-left">
             <tr className="bg-[#DEDCFE] font-semibold text-[10px] text-[#413ACA] uppercase">
               <th className="px-4 py-2.5 rounded-l-[20px]">Service</th>
-              <th className="py-2.5">Hours</th>
+              <th className="py-2.5">Quantity</th>
               <th className="py-2.5">Price{"($)"}</th>
               <th className="py-2.5 rounded-r-[20px]">Total</th>
             </tr>

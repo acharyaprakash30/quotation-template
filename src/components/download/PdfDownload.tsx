@@ -70,7 +70,7 @@ const PdfDownload = ({ quotationData }: any) => {
                     </View>
                     <View>
                       <Text>invoice to</Text>
-                      <Text style={styles.text}>{quotationData.invoiceTo}</Text>
+                      {/* <Text style={styles.text}>{quotationData.invoiceTo}</Text> */}
                     </View>
                     <View>
                       <Text>phone</Text>

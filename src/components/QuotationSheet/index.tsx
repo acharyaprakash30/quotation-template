@@ -76,9 +76,6 @@ const QuotationSheet = ({ quotationData }: any) => {
               </div>
             </div>
           </div>
-
-
-
         </div>
 
       </div>
