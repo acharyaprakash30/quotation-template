@@ -34,7 +34,7 @@ const Table = ({ quotationData }: any) => {
                     </span>
                   </td>
                   <td className="text-[11px] text-[#04151ABF] font-normal">
-                    {item.hours}
+                    {item.quantity}
                   </td>
                   <td className="text-[11px] text-[#04151ABF] font-normal">
                     {item.price}
