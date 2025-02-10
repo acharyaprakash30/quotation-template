@@ -1,6 +1,8 @@
 import * as yup from "yup";
 
 export const validationSchema = yup.object().shape({
+  acountName: yup.string().required("This Field is required"),
+  swiftCode: yup.string().required("This Field is required"),
   name: yup.string().required("This Field is required"),
   clientName: yup.string().required("This Field is required"),
   clientAddress: yup.string().required("This Field is required"),
@@ -20,8 +22,8 @@ export const validationSchema = yup.object().shape({
     .required("This Field is required"),
   accountNumber: yup.string().required("This Field is required"),
   bankName: yup.string().required("This Field is required"),
-  logo: yup.mixed().required("This Field is required"),
-  clientLogo: yup.mixed().required("This Field is required"),
+  // logo: yup.mixed().required("This Field is required"),
+  // clientLogo: yup.mixed().required("This Field is required"),
   managerSignature: yup.mixed().required("This Field is required"),
   termsAndConditions: yup.string().required("This Field is required"),
   taxAmount: yup

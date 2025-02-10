@@ -15,6 +15,8 @@ const page = () => {
   const handleSubmit = (values: any) => {
     setLoading(true);
     const formData = new FormData();
+    formData.append("acountName", values.acountName);
+    formData.append("swiftCode", values.swiftCode);
     formData.append("name", values.name);
     formData.append("manager", values.manager);
     formData.append("quotationNumber", values.quotationNo);
@@ -23,12 +25,12 @@ const page = () => {
     formData.append("phoneNumber", values.phoneNumber);
     formData.append("accountNumber", values.accountNumber);
     formData.append("bankName", values.bankName);
-    formData.append("logo", values.logo);
+    // formData.append("logo", values.logo);
     formData.append("managerSignature", values.managerSignature);
     formData.append("termsAndConditions", values.termsAndConditions);
     formData.append("taxAmount", values.taxAmount);
     formData.append("totalAmount", String(subTotal));
-    formData.append("clientLogo", values.clientLogo);
+    // formData.append("clientLogo", values.clientLogo);
     formData.append("clientName", values.clientName);
     formData.append("clientAddress", values.clientAddress);
     formData.append("address", values.address);

@@ -67,6 +67,18 @@ const Table = ({ quotationData }: any) => {
                     {quotationData.bankName}
                   </span>
                 </p>
+                <p className="lg:text-[11px] text-[8px] font-normal mb-2">
+                 Bank Account Name. :{" "}
+                  <span className="font-semibold">
+                    {quotationData.acountName}
+                  </span>
+                </p>
+                <p className="lg:text-[11px] text-[8px] font-normal mb-2">
+                Swift Code. :{" "}
+                  <span className="font-semibold">
+                    {quotationData.swiftCode}
+                  </span>
+                </p>
               </div>
             </div>
 

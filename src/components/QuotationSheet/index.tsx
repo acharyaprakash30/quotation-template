@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Table from "../Table";
 import PdfDownload from "@app/components/download/PdfDownload";
+import moment from "moment";
 
 const QuotationSheet = ({ quotationData }: any) => {
   const PDFDownloadLink = dynamic(
@@ -20,66 +21,70 @@ const QuotationSheet = ({ quotationData }: any) => {
     <div className="bg-white drop-shadow-md rounded-2xl">
       <div className="lg:py-8 p-4 lg:px-6 ">
         <div className="flex flex-wrap justify-between">
-          <p className="lg:text-xl xl:text-4xl font-semibold mt-2">
-            Quotation
-          </p>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-            <p className=" text-xs text-black capitalize">Quotation Number</p>
-            <p className="lg:text-xs text-xs font-medium text-black/60 "> {quotationData.quotationNumber}</p>
-            <p className="text-xs text-black capitalize">Date</p>
-            <p className="lg:text-xs text-xs font-medium text-black/60 "> {quotationData.quotationDate}</p>
-            <p className="text-xs text-black capitalize">Valid Till Date</p>
-            <p className="lg:text-xs text-xs font-medium text-black/60 "> {quotationData.validDate}</p>
-          </div>
-        </div>
-        <div className="flex justify-between mt-10">
-          <div>
-            <p className="text-xs font-normal ">Quotation From: </p>
+          <div className="flex flex-col ">
+       
+            <p className="lg:text-xl xl:text-4xl font-semibold mt-2 mb-2">
+              Quotation
+            </p>
+            <p className="lg:text-xs text-xs font-normal text-black ml-1 ">
+          {moment(quotationData.quotationDate).format("Do MMMM YYYY")}
+              </p>
+            <p className="lg:text-xs text-xs font-normal  text-[#413ACA] ml-1 "><span className="text-black text-bold">Quotation Number: </span> #{quotationData.quotationNumber}</p>
 
-            <div className="flex gap-4 my-4">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
-                alt="logo"
-                className="w-[80px] h-[80px] "
-                width={100}
-                height={100}
-              />
-              <div>
-                <p className="lg:text-xs text-xs font-normal text-black capitalize">
-                  {quotationData.clientName}
-                </p>
-                <p className="text-[10px] font-normal text-black/60 capitalize">
-                  {quotationData.clientEmail}
-                </p>
-                <p className="text-[10px] font-normal text-black/60 capitalize">
-                  {quotationData.clientAddress}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div>
-            <p className="text-xs font-normal">Quotation To: </p>
-            <div className="flex justify-end gap-4 my-4">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.logo}`}
-                alt="logo"
-                className="w-[80px] h-[80px] "
-                width={100}
-                height={100}
-              />
+      
 
-              <div>
-                <p className="lg:text-xs text-xs font-semibold text-black capitalize">{quotationData.company.name}</p>
-                <p className="lg:text-[10px] text-[10px] font-normal text-black/60 ">{quotationData.company.email}</p>
-                <p className="lg:text-[10px] text-[10px] font-normal text-black/60 ">{quotationData.company.address}</p>
-                <p className="lg:text-[10px] text-[10px] font-normal text-black/60 ">{quotationData.company.phoneNumber}</p>
-              </div>
-            </div>
+            {/* <p className="text-xs font-normal text-black">Date: {quotationData.quotationDate} </p> */}
+            {/* <p className="text-xs font-normal text-black">Valid Till Date: {quotationData.validDate}</p> */}
+
           </div>
+          <div className="flex flex-col gap-1 justify-center items-end">
+    
+            <Image src="https://www.milologic.com/_next/static/media/logo-milologic.1b06414e.svg" alt="logo" width={200} height={40} />
+            <p className="lg:text-xs text-xs font-normal text-black ">{quotationData.company.email}</p>
+            <p className="lg:text-xs text-[10px] font-normal text-black ">{quotationData.company.address}</p>
+          </div>
+
         </div>
+        <p className="lg:text-sm xl:text-sm font-normal mt-10 mb-2">
+              Quotation For
+            </p>
+        <table className="w-full table-fixed ">
+          <thead className="text-left">
+            <tr className="bg-[#DEDCFE] font-semibold text-[10px] text-[#413ACA] uppercase">
+              <th className="px-4 py-2.5 rounded-l-[20px]">Business Name</th>
+              <th className="py-2.5">Business Email</th>
+              <th className="py-2.5">Business Address</th>
+              <th className="py-2.5">Valid Till Date</th>
+            </tr>
+          </thead>
+          <tbody>
+         
+                <tr className="odd:bg-white even:bg-[#F8F9FC]">
+                  <td className=" p-4 text-[11px] text-[#04151ABF] font-normald">
+                    {quotationData.clientName}
+                  </td>
+                  <td className=" p-4 text-[11px] text-[#04151ABF] font-normald">
+                    {quotationData.clientEmail}
+                  </td>
+                  <td className=" p-4 text-[11px] text-[#04151ABF] font-normal">
+                    {quotationData.clientAddress}
+                  </td>
+                  <td className=" p-4 text-[11px] text-[#04151ABF] font-normal">
+                  {moment(quotationData.validDate).format("Do MMMM YYYY")}
+                  </td>
+             
+                </tr>
+           
+          </tbody>
+        </table>
+
 
       </div>
+    
       <div className="lg:p-4 p-2">
+      <p className="lg:text-sm xl:text-sm font-normal mb-2">
+              Quotations 
+            </p>
         <Table quotationData={quotationData} />
       </div>
       <div className="py-5 lg:px-6 ">
@@ -103,13 +108,13 @@ const QuotationSheet = ({ quotationData }: any) => {
               </p>
             </div>
             <div>
-              <Image
+              {/* <Image
                 src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}${quotationData.company.managerSignature}`}
                 alt="signature"
                 className="w-1/2 m-auto"
                 width={100}
                 height={100}
-              />
+              /> */}
 
               <div className="px-8 py-2 border-t border-black text-center">
                 <p className="lg:text-xs text-[10px] font-semibold">
